@@ -40,6 +40,22 @@ public class Main {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		
+		
 		System.out.println("Squeeze Light Media Codec !");
+		PPMReaderWriter readerWriter = new PPMReaderWriter();
+
+		int[][][] imageArray = readerWriter.readPPMFile(args[0]);
+
+		RGBtoYCbCr convertie = new RGBtoYCbCr();
+
+		int[][][] imageArray2 = convertie.conversion(imageArray);
+
+		readerWriter.writePPMFile(args[1], imageArray2);
+		
+		
+		
+		
+		
 	}
 }
