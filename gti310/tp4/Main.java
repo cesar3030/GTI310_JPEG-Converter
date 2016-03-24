@@ -6,7 +6,7 @@ package gti310.tp4;
  * into PPM format. It is the implementation of the simplified JPEG block 
  * diagrams.
  * 
- * @author François Caron
+ * @author Franï¿½ois Caron
  */
 public class Main {
 
@@ -40,6 +40,9 @@ public class Main {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+
+		System.out.println("Squeeze Light Media Codec !");
+
 		
 		PPMReaderWriter readerWriter = new PPMReaderWriter();
 		RGBtoYUV convertie = new RGBtoYUV();
@@ -55,9 +58,6 @@ public class Main {
 		int[][][] ImageConverti = convertie.conversionRGBtoYUV(imageRecu);
 		//convertie.lectureRGBImage(ImageConverti);
 		readerWriter.writePPMFile(args[1], ImageConverti);
-	
-		
-		
-		
+
 	}
 }
