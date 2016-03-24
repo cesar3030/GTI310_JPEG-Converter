@@ -11,9 +11,9 @@ import java.io.IOException;
 /**
  * The SZLReaderWriter class writes and reads SZL files. The SZL format is a
  * private format of file: it is only used in the context of the GTI310 course
- * at the ÉTS.
+ * at the ï¿½TS.
  * 
- * @author François Caron
+ * @author Franï¿½ois Caron
  */
 public class SZLReaderWriter {	
 	/*
@@ -23,7 +23,7 @@ public class SZLReaderWriter {
 	
 	/**
 	 * Write an SZL file. The height, width and qualityFactor parameters will
-	 * be stored in the file's header. The filenam parameter is the name that
+	 * be stored in the file's header. The filename parameter is the name that
 	 * will be given to the file: it can be a complete path of just the
 	 * filename. The actual data is retreived from the writing buffer in the
 	 * Entropy class.

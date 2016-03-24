@@ -6,7 +6,7 @@ package gti310.tp4;
  * into PPM format. It is the implementation of the simplified JPEG block 
  * diagrams.
  * 
- * @author François Caron
+ * @author Franï¿½ois Caron
  */
 public class Main {
 
@@ -40,6 +40,11 @@ public class Main {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+
+		//TODO: Si conversion ...
+
+		//TODO: Si conversion inverse ...
+
 		System.out.println("Squeeze Light Media Codec !");
 	}
 }
