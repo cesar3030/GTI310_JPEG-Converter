@@ -31,8 +31,8 @@ public class Main {
 	 * The YUV color space.
 	 */
 	public static final int Y = 0;
-	public static final int U = 1;
-	public static final int V = 2;
+	public static final int Cb= 1;
+	public static final int Cr = 2;
 	
 	/**
 	 * The application's entry point.
@@ -40,6 +40,24 @@ public class Main {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		System.out.println("Squeeze Light Media Codec !");
+		
+		PPMReaderWriter readerWriter = new PPMReaderWriter();
+		RGBtoYUV convertie = new RGBtoYUV();
+		
+		
+		int[][][] imageRecu = readerWriter.readPPMFile(args[0]);
+		
+		
+	
+		//Utilise pour tester les matrice non modifier
+	  //convertie.lectureRGBImage(imageRecu);
+	
+		int[][][] ImageConverti = convertie.conversionRGBtoYUV(imageRecu);
+		//convertie.lectureRGBImage(ImageConverti);
+		readerWriter.writePPMFile(args[1], ImageConverti);
+	
+		
+		
+		
 	}
 }
