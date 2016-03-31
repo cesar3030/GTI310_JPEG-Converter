@@ -1,5 +1,8 @@
 package gti310.tp4;
 
+import gti310.tp4.logic.RGBtoYCbCr;
+import gti310.tp4.util.PPMReaderWriter;
+
 /**
  * The Main class is where the different functions are called to either encode
  * a PPM file to the Squeeze-Light format or to decode a Squeeze-Ligth image
