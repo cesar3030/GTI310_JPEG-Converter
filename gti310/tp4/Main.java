@@ -45,19 +45,19 @@ public class Main {
 
 		
 		PPMReaderWriter readerWriter = new PPMReaderWriter();
-		RGBtoYUV convertie = new RGBtoYUV();
-		
+		RGBtoYCbCr convertie = new RGBtoYCbCr();
 		
 		int[][][] imageRecu = readerWriter.readPPMFile(args[0]);
 		
+		//effectu la conversion de RGB vers YCbCr
+		int[][][] ImageConverti = convertie.conversionRGBtoYCbCr(imageRecu);
 		
-	
-		//Utilise pour tester les matrice non modifier
-	  //convertie.lectureRGBImage(imageRecu);
-	
-		int[][][] ImageConverti = convertie.conversionRGBtoYUV(imageRecu);
-		//convertie.lectureRGBImage(ImageConverti);
-		readerWriter.writePPMFile(args[1], ImageConverti);
 
+		//effectu la conversion de YCbCr vers RGB 
+		// int[][][] ImageConverti = convertie.conversionYCbCrtoRGB(imageRecu);
+		
+		
+		//ecriture du fichier 
+		readerWriter.writePPMFile(args[1], ImageConverti);
 	}
 }
