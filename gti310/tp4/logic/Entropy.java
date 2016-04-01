@@ -1,11 +1,11 @@
-package gti310.tp4;
+package gti310.tp4.logic;
 
 /**
  * The Entropy class is used to write the DC and AC coefficients after DPCM or
  * RLE compression. It does not write the information to a file, but to a
  * buffer, that can be written to a file using the SZLReaderWriter class.
  * 
- * @author François Caron
+ * @author Franï¿½ois Caron
  * 
  * @history
  * 2006-11-29 Fixed values in HUFFMAN_AC table

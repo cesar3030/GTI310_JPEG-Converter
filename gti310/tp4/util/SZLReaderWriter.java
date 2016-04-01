@@ -1,4 +1,7 @@
-package gti310.tp4;
+package gti310.tp4.util;
+
+import gti310.tp4.logic.Entropy;
+import gti310.tp4.Main;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;

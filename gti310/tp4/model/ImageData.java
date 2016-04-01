@@ -14,6 +14,12 @@ public class ImageData {
     //Arraylist of 8x8 matrices
     private List<int[][]> matricesList = null;
 
+    //Attributes use to rebuild the original matrix from the matricesList
+    private int nbColor;
+    private int nbRow;
+    private int nbColumn;
+
+
     /**
      * Constructor that takes a 3 dimensions int array
      * @param image the image
@@ -24,16 +30,18 @@ public class ImageData {
 
         int[][] tmp = new int[MATRIX_SIZE][MATRIX_SIZE];
 
-        //for each color (RGB or YUV)
-        for (int c = 0; c < image.length; c++) {
+        nbColor = image.length;
+        nbRow = image[0].length;
+        nbColumn = image[0][0].length;
 
-            for (int row = 0; row < image[c].length; row+=MATRIX_SIZE) {
+        //for each color (RGB or YUV)
+        for (int c = 0; c < nbColor; c++) {
+            for (int row = 0; row < nbRow ; row+=MATRIX_SIZE) {
                 for (int col = 0; col < image[c][row].length ; col+=MATRIX_SIZE) {
 
                     //We set the value into the temp matrix
                     for (int i = 0; i < MATRIX_SIZE; i++) {
                         for (int j = 0; j < MATRIX_SIZE ; j++) {
-
                             tmp[i][j]=image[c][row+i][col+j];
                         }
                     }
@@ -128,5 +136,33 @@ public class ImageData {
         return matricesList;
     }
 
+    /**
+     * Method that convert the Matrices list into a 3 dimensions Matrix.
+     */
+    public int[][][] getImageMatrix(){
 
+        int[][][] matrix = new int[nbColor][nbRow][nbColumn];
+
+        //index of the current matrix in the matricesList
+        int index = 0;
+        //tmp matrix to manipulate the current matrix extracted from the matricesList
+        int[][] tmp =null;
+
+        //for each color (RGB or YUV)
+        for (int c = 0; c < nbColor; c++) {
+            for (int row = 0; row < nbRow; row+=MATRIX_SIZE) {
+                for (int col = 0; col < nbColumn ; col+=MATRIX_SIZE) {
+                    tmp = getMatrix(index++);
+                    //We set the value into the temp matrix
+                    for (int i = 0; i < MATRIX_SIZE; i++) {
+                        for (int j = 0; j < MATRIX_SIZE ; j++) {
+                            matrix[c][row+i][col+j] = tmp[i][j];
+                        }
+                    }
+                }
+            }
+
+        }
+        return matrix;
+    }
 }

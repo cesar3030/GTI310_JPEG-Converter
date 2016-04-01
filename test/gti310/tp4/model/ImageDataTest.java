@@ -134,4 +134,18 @@ public class ImageDataTest {
         }
         assertEquals(9,index);
     }
+
+    @Test
+    public void testGetImageMatrix() throws Exception {
+        ImageData imageData = new ImageData(image);
+        int[][][] reconvertedImage = imageData.getImageMatrix();
+        for (int i = 0; i < image.length; i++) {
+            for (int j = 0; j < image[i].length; j++) {
+                for (int k = 0; k < image[i][j].length; k++) {
+                    assertEquals(image[i][j][k],reconvertedImage[i][j][k]);
+                }
+            }
+        }
+
+    }
 }
