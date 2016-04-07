@@ -35,8 +35,6 @@ public class SZLReaderWriter {
 	 * @param height
 	 * @param width
 	 * @param qualityFactor
-	 * @param buffer
-	 * @param size
 	 */
 	public static void writeSZLFile(String filename, int height, int width, int qualityFactor) {
 		try {

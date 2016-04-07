@@ -56,11 +56,7 @@ public class AcDcConversion {
 
         int currentValue;
         int nbZeros=0;
-        int islastAc=0; // 1 if true else 0
-
         for (int i = 1; i < vector.length; i++) {
-
-            if(i==vector.length-1)islastAc=1;
 
             currentValue=vector[i];
 
@@ -68,17 +64,23 @@ public class AcDcConversion {
                 nbZeros++;
             }
             else{
-                ACList.add(new int[]{nbZeros,currentValue,islastAc});
+                ACList.add(new int[]{nbZeros,currentValue,0});
                 nbZeros=0;
             }
         }
+
+        if(ACList.size()>0){
+            //We set to the last int[] AC the value 1 to the index 2 to show that it's the last of the sequence
+            ACList.get(ACList.size()-1)[2]=1;
+        }
+
     }
 
     private static List<Integer> IRLC(List<int[]> acRlcList, int indexAc){
         List<Integer> rowAc = new ArrayList<>();
         boolean end =false;
 
-        while(!end){
+        while(end==false){
             int[] acRlc = acRlcList.get(indexAc++);
 
             for (int i = 0; i < acRlc[0]; i++) {

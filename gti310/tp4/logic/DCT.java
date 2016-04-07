@@ -14,7 +14,7 @@ public class DCT {
      * Method to calculate the DCT of the given image
      * @param image
      */
-    public static void processDCT(ImageData image){
+    public static void process(ImageData image){
 
         int[][] tmpMatrix = null;
 
@@ -37,7 +37,7 @@ public class DCT {
      * Method to calculate the IDCT of the given image
      * @param image
      */
-    public static void processIDCT(ImageData image){
+    public static void reverse(ImageData image){
         int[][] tmpMatrix = null;
 
         //for each matrix of the image, we calculate the DCI
