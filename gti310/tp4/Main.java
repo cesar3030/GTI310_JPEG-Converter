@@ -46,7 +46,7 @@ public class Main {
 
 		System.out.println("Squeeze Light Media Codec !");
 
-		
+		QuantificationTables t = new QuantificationTables();
 		PPMReaderWriter readerWriter = new PPMReaderWriter();
 		RGBtoYCbCr convertie = new RGBtoYCbCr();
 		
@@ -62,5 +62,6 @@ public class Main {
 		
 		//ecriture du fichier 
 		readerWriter.writePPMFile(args[1], ImageConverti);
+		t.selectIndex();
 	}
 }

@@ -1,5 +1,6 @@
 package gti310.tp4.logic;
 
+import gti310.tp4.logic.DCT;
 import gti310.tp4.model.ImageData;
 import org.junit.Before;
 import org.junit.Test;

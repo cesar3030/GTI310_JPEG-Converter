@@ -1,7 +1,8 @@
-package test.gti310.tp4.logic;
+package gti310.tp4;
+
+import org.junit.Test;
 
 import gti310.tp4.logic.ZigZag;
-import org.junit.Test;
 
 import static org.junit.Assert.*;
 
@@ -13,8 +14,7 @@ public class ZigZagTest {
     @Test
     public void testConvertToZigzag() throws Exception {
 
-        int[][] matrix = new int[][]
-                {
+        int[][] matrix = new int[][]{
                 {96,6,-1,0,0,0,0,0},
                 {-1,0,0,0,0,0,0,0},
                 {-1,0,1,0,0,0,0,0},
