@@ -1,5 +1,6 @@
 package gti310.tp4;
 
+
 import gti310.tp4.logic.*;
 import gti310.tp4.model.ImageData;
 import gti310.tp4.util.PPMReaderWriter;
@@ -57,23 +58,7 @@ public class Main {
 		else{
 			System.out.println("Error: Missing arguments");
 		}
-
 		
-		PPMReaderWriter readerWriter = new PPMReaderWriter();
-		RGBtoYCbCr convertie = new RGBtoYCbCr();
-		
-		int[][][] imageRecu = readerWriter.readPPMFile(args[0]);
-		
-		//effectu la conversion de RGB vers YCbCr
-		int[][][] ImageConverti = convertie.conversionRGBtoYCbCr(imageRecu);
-		
-
-		//effectu la conversion de YCbCr vers RGB 
-		// int[][][] ImageConverti = convertie.conversionYCbCrtoRGB(imageRecu);
-		
-		
-		//ecriture du fichier 
-		readerWriter.writePPMFile(args[1], ImageConverti);
 	}
 
 	/**
