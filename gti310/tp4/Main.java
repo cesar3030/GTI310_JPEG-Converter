@@ -1,6 +1,9 @@
 package gti310.tp4;
 
+import gti310.tp4.logic.Quantification;
+import gti310.tp4.logic.QuantificationTables;
 import gti310.tp4.logic.RGBtoYCbCr;
+import gti310.tp4.model.ImageData;
 import gti310.tp4.util.PPMReaderWriter;
 
 /**
@@ -63,5 +66,8 @@ public class Main {
 		//ecriture du fichier 
 		readerWriter.writePPMFile(args[1], ImageConverti);
 		t.selectIndex();
+		
+	
+		
 	}
 }

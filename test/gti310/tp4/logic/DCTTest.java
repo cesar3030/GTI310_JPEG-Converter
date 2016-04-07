@@ -1,4 +1,4 @@
-package gti310.tp4.logic;
+package test.gti310.tp4.logic;
 
 import gti310.tp4.logic.DCT;
 import gti310.tp4.model.ImageData;

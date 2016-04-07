@@ -1,4 +1,4 @@
-package gti310.tp4;
+package gti310.tp4.logic;
 
 public class QuantificationTables {
 
