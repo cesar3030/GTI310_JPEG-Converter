@@ -11,7 +11,7 @@ public class Quantification {
 	private static int fQ;
 	private static double alpha;
 	private final static int FQMAX = 100;
-	private final static int FQMIN = 1;
+	private final static int FQMIN = 0;
 
 	// Tableau de quantification
 	private static int[][] qCbCr;
@@ -49,8 +49,9 @@ public class Quantification {
 	 */
 	public static void ProcessQuantification(ImageData img, int fQRecu) {
 
-		checkfQ();
+		
 		fQ = fQRecu;
+		checkfQ();
 		calculAlpha();
 
 		// Fetch les matrices
@@ -90,6 +91,53 @@ public class Quantification {
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
 				recu[i][j] = (int) Math.round((recu[i][j]) / (alpha * qCbCr[i][j]));
+			}
+		}
+	}
+	/*
+	 * Methode permetant le process de la quantification inverse
+	 */
+	public static void ProcessReverseQuantification(ImageData img,int fQRecu) {
+		 ArrayList<int[][]> reserveMatriceY = img.getYMatrices();
+		 ArrayList<int[][]> reserveMatriceCB = img.getCbMatrices();
+		 ArrayList<int[][]> reserveMatriceCR = img.getCrMatrices();
+		 
+		 
+		 fQ = fQRecu;
+			checkfQ();
+			calculAlpha();
+		 
+		
+		 for (int[][] m : reserveMatriceY) {
+			 reverseQuantificationY(m);
+			}
+
+			for (int[][] n : reserveMatriceCB) {
+				reverseQuantificationCbCr(n);
+			}
+
+			for (int[][] o : reserveMatriceCR) {
+				reverseQuantificationCbCr(o);
+			}
+		}
+	/*
+	 * Methode permetant la conversion inverse de la matrice Cb ou Cr inverse
+	 */
+	private static void reverseQuantificationCbCr(int[][] recu) {
+		for (int i = 0; i < 8; i++) {
+			for (int j = 0; j < 8; j++) {
+				recu[i][j] = (int) Math.round((recu[i][j]) * (alpha * qY[i][j]));
+			}
+		}
+	}
+	
+	/*
+	 * Methode permetant la conversion inverse de la matrice y inverse
+	 */
+	private static void reverseQuantificationY(int[][] recu) {
+		for (int i = 0; i < 8; i++) {
+			for (int j = 0; j < 8; j++) {
+				recu[i][j] = (int) Math.round((recu[i][j]) * (alpha * qCbCr[i][j]));
 			}
 		}
 	}
