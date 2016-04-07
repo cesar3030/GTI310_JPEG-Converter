@@ -14,11 +14,24 @@ public class ImageData {
     //Arraylist of 8x8 matrices
     private List<int[][]> matricesList = null;
 
+    //List of DC after DPCM
+    private List<Integer> DCList;
+    //List of AC after RLC ([0]:number of 0 before the value,[1]:value,[2]: last->1 else 0)
+    private List<int[]> ACList;
+
+    //list of vectors, result of the matrices after zigzag
+    private List<int[]> zigzagVectors;
+
     //Attributes use to rebuild the original matrix from the matricesList
     private int nbColor;
     private int nbRow;
     private int nbColumn;
 
+
+    /**
+     * Default constructor
+     */
+    public ImageData(){}
 
     /**
      * Constructor that takes a 3 dimensions int array
@@ -164,5 +177,85 @@ public class ImageData {
 
         }
         return matrix;
+    }
+
+    /**
+     * Getter
+     * @return
+     */
+    public List<Integer> getDCList() {
+        return DCList;
+    }
+
+    /**
+     * Set the given DCList
+     * @return
+     */
+    public void setDCList(List<Integer> DCList) {
+        this.DCList = DCList;
+    }
+
+    /**
+     * Getter
+     * @return
+     */
+    public List<int[]> getACList() {
+        return ACList;
+    }
+
+    /**
+     * Set the given ACList
+     * @return
+     */
+    public void setACList(List<int[]> ACList) {
+        this.ACList = ACList;
+    }
+
+    /**
+     * Getter
+     * @return
+     */
+    public List<int[]> getZigzagVectors() {
+        return zigzagVectors;
+    }
+
+    /**
+     * Set the given List of vector
+     * @param zigzagVectors
+     */
+    public void setZigzagVectors(List<int[]> zigzagVectors) {
+        this.zigzagVectors = zigzagVectors;
+    }
+
+    /**
+     * Set the given List of matrix
+     * @param matricesList
+     */
+    public void setMatricesList(List<int[][]> matricesList) {
+        this.matricesList = matricesList;
+    }
+
+    public int getNbColor() {
+        return nbColor;
+    }
+
+    public void setNbColor(int nbColor) {
+        this.nbColor = nbColor;
+    }
+
+    public int getNbRow() {
+        return nbRow;
+    }
+
+    public void setNbRow(int nbRow) {
+        this.nbRow = nbRow;
+    }
+
+    public int getNbColumn() {
+        return nbColumn;
+    }
+
+    public void setNbColumn(int nbColumn) {
+        this.nbColumn = nbColumn;
     }
 }

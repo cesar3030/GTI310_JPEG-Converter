@@ -73,4 +73,25 @@ public class DCTTest {
             }
         }
     }
+
+    @Test
+    public void testProcessDCTAndIDCT() throws Exception {
+        DCT.processDCT(image);
+        DCT.processIDCT(image);
+
+        int[][][] convertedMatrix = image.getImageMatrix();
+
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[i].length; j++) {
+                for (int k = 0; k < matrix[i][j].length; k++) {
+                    int error = Math.abs(matrix[i][j][k]-convertedMatrix[i][j][k]);
+
+                    //assertEquals(matrix[i][j][k],convertedMatrix[i][j][k]);
+
+                    System.out.print(convertedMatrix[i][j][k]+"|"+matrix[i][j][k]+"|"+error+"  ");
+                }
+                System.out.println();
+            }
+        }
+    }
 }
