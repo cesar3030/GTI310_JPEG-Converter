@@ -18,7 +18,7 @@ public class DCT {
 
         int[][] tmpMatrix = null;
 
-        //for each matrix of the image, we calculate the DCI
+        //for each matrix of the image, we calculate the DCT
         for (int i = 0; i < image.getNbMatrices() ; i++) {
 
             tmpMatrix = image.getMatrix(i);
@@ -90,7 +90,7 @@ public class DCT {
     }
 
     private static double DCTFormula(int u,int v,int [][] matrix){
-        int sum = 0;
+        double sum = 0;
         for (int i = 0; i < MATRIX_SIZE; i++) {
             for (int j = 0; j < MATRIX_SIZE; j++) {
                 sum += (cosFormula(i,u)*cosFormula(j,v)*matrix[i][j]);
@@ -101,7 +101,7 @@ public class DCT {
     }
 
     private static double IDCTFormula(int u,int v,int [][] matrix){
-        int sum = 0;
+        double sum = 0;
         for (int i = 0; i < MATRIX_SIZE; i++) {
             for (int j = 0; j < MATRIX_SIZE; j++) {
                 sum += ((C(u)*C(v))/4)*(cosFormula(i,u)*cosFormula(j,v)*matrix[i][j]);
@@ -111,16 +111,12 @@ public class DCT {
         return sum;
     }
 
-    private static double IDCTFormula(int u,int v){
-        return 0;
-    }
-
     private static double C(int i){
-        return i == 0 ? 1/Math.sqrt(2) : 1;
+        return i == 0 ? (1/Math.sqrt(2)) : 1;
     }
 
     private static double cosFormula(int iteration,int matrixPosition){
-        return Math.cos(((2*iteration+1)*matrixPosition*Math.PI)/16);
+        return Math.cos((((2*iteration)+1)*matrixPosition*Math.PI)/16);
     }
 
 

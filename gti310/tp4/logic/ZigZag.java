@@ -10,24 +10,32 @@ import java.util.ArrayList;
 public class ZigZag {
 
     /**
-     * Method that convert the list of matrix of the ImageData object into ZigZag format
+     * Method that convert the list of matrix of the ImageData object into a list of ZigZag vectors
      * @param image the ImageData object
      */
-    public static void processToZigZag(ImageData image){
+    public static void process(ImageData image){
+        ArrayList<int[]> zigzagVectors = new ArrayList<int[]>();
 
+        for (int i = 0; i < image.getNbMatrices(); i++) {
+            zigzagVectors.add(convertToZigzag(image.getMatrix(i)));
+        }
+
+        image.setZigzagVectors(zigzagVectors);
     }
 
     /**
      * Method that convert the list of matrix of the ImageData object into the state they were before to be converted into ZigZag format
      * @param image the ImageData object
      */
-    public static void processFromZigZag(ImageData image){
+    public static void reverse(ImageData image){
 
-        ArrayList<int[]> zigzagVectors = new ArrayList<int[]>();
+        ArrayList<int[][]> matrices = new ArrayList<int[][]>();
 
-        for (int i = 0; i < image.getNbMatrices(); i++) {
-
+        for (int i = 0; i < image.getZigzagVectors().size(); i++) {
+            matrices.add(convertFromZigzag(image.getZigzagVectors().get(i)));
         }
+
+        image.setMatricesList(matrices);
     }
 
     /**
