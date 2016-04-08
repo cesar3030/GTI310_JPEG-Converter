@@ -74,7 +74,7 @@ public class Quantification {
 
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
-				recu[i][j] = (int) Math.round((recu[i][j]) / (alpha * t.getMATRIXQY()[i][j]));
+				recu[i][j] = (int) (Math.round((recu[i][j]) / (alpha * t.getMATRIXQY()[i][j])));
 			}
 		}
 	}
@@ -85,7 +85,10 @@ public class Quantification {
 	private static void quantificationCbCr(int[][] recu) {
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
-				recu[i][j] = (int) Math.round((recu[i][j]) / (alpha * t.getMATRIXQCBCR()[i][j]));
+				recu[i][j] = (int)Math.round(
+						(recu[i][j])
+								/ (alpha * t.getMATRIXQCBCR()[i][j])
+				);
 			}
 		}
 	}
@@ -121,7 +124,7 @@ public class Quantification {
 	private static void reverseQuantificationCbCr(int[][] recu) {
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
-				recu[i][j] = (int) Math.round((recu[i][j]) * (alpha * t.getMATRIXQY()[i][j]));
+				recu[i][j] = (int) (Math.round((recu[i][j]) * (alpha * t.getMATRIXQCBCR()[i][j])));
 			}
 		}
 	}
@@ -132,7 +135,7 @@ public class Quantification {
 	private static void reverseQuantificationY(int[][] recu) {
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
-				recu[i][j] = (int) Math.round((recu[i][j]) * (alpha * t.getMATRIXQCBCR()[i][j]));
+				recu[i][j] = (int) (Math.round((recu[i][j]) * (alpha * t.getMATRIXQY()[i][j])));
 			}
 		}
 	}

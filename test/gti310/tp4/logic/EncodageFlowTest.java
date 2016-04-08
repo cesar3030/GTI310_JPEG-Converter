@@ -67,7 +67,7 @@ public class EncodageFlowTest {
         compare3dMatrices(matrixAfterQuantization,imageData.getImageMatrix());
 
         Quantification.reverse(imageData,40);
-        //compare3dMatrices(matrixAfterDCT,imageData.getImageMatrix());
+        compare3dMatrices(matrixAfterDCT,imageData.getImageMatrix());
 
 
     }
