@@ -5,6 +5,7 @@ import gti310.tp4.logic.QuantificationTables;
 import gti310.tp4.logic.RGBtoYCbCr;
 import gti310.tp4.model.ImageData;
 import gti310.tp4.util.PPMReaderWriter;
+import test.gti310.tp4.logic.QuantificationTest;
 
 /**
  * The Main class is where the different functions are called to either encode
@@ -49,25 +50,8 @@ public class Main {
 
 		System.out.println("Squeeze Light Media Codec !");
 
-		QuantificationTables t = new QuantificationTables();
-		PPMReaderWriter readerWriter = new PPMReaderWriter();
-		RGBtoYCbCr convertie = new RGBtoYCbCr();
-		
-		int[][][] imageRecu = readerWriter.readPPMFile(args[0]);
-		
-		//effectu la conversion de RGB vers YCbCr
-		int[][][] ImageConverti = convertie.conversionRGBtoYCbCr(imageRecu);
-		
-
-		//effectu la conversion de YCbCr vers RGB 
-		// int[][][] ImageConverti = convertie.conversionYCbCrtoRGB(imageRecu);
-		
-		
-		//ecriture du fichier 
-		readerWriter.writePPMFile(args[1], ImageConverti);
-		t.selectIndex();
-		
+		QuantificationTest t = new QuantificationTest();
 	
-		
+		t.testProcess();
 	}
 }
