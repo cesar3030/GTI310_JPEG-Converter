@@ -153,7 +153,7 @@ public class Entropy {
 	 * Prepare new buffer to write output, and reset current position in buffer
 	 * and amount of bits left to read in current byte.
 	 */
-	private static void flushBuffers() {
+	public static void flushBuffers() {
 		/* create new storage space */
 		writingBuffer = new byte[BUFFER_SIZE];
 		
@@ -319,37 +319,50 @@ public class Entropy {
 	 * Method that return a list of AC
 	 * @return The list of AC
      */
-	public static List<int[]> getACList(){
+	public static List<int[]> getACList(int width,int height) throws ArrayIndexOutOfBoundsException{
 		List<int[]> ACList = new ArrayList<>();
 
 		int[] ac = readAC();
+		int i = 0;
+		try{
+			while(ac!=null){
+				ACList.add(ac);
+				ac = readAC();
+				//System.out.println("ac[0]+ac[1]+ ac.length = " + ac[0]+ac[1]+"  "+i++);
+			}
+		}
+		catch (ArrayIndexOutOfBoundsException a){
 
-		while(ac!=null){
-			ACList.add(ac);
-			ac = readAC();
-			System.out.println("ac[0]+ac[1]+ ac.length = " + ac[0]+ac[1]+"  "+ac.length);
+		}
+		finally {
+
+			if(ACList.size()==0)
+				return null;
+			else
+				return ACList;
 		}
 
-		if(ACList.size()==0)
-			return null;
-		else
-			return ACList;
+
 	}
 
 	/**
 	 * Method that return a list of DC
 	 * @return The list of DC
 	 */
-	public static List<Integer> getDCList(){
+	public static List<Integer> getDCList(int width,int height){
 		List<Integer> DCList = new ArrayList<>();
 
-		int dc = readDC();
+		//int dc = readDC();
 
-		while(dc != 0xffffffff){
+		for (int i = 0; i < ((width*height)/64)*3; i++) {
+			int dc = readDC();
+			DCList.add(dc);
+		}
+		/*while(dc != 0xffffffff){
 			DCList.add(dc);
 			dc = readDC();
 			System.out.println("dc = " + dc);
-		}
+		}*/
 
 		if(DCList.size()==0)
 			return null;

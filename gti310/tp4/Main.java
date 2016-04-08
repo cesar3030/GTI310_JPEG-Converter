@@ -55,6 +55,84 @@ public class Main {
 		else if(args.length == 3){
 			encode(args[0],args[1],Integer.parseInt(args[2]));
 		}
+		else if(args.length == 4){
+
+			System.out.println("--------------------------------");
+			System.out.println("Test encode and decode one shot");
+			System.out.println("--------------------------------");
+
+			encode("media/lena.ppm","media/encode_sortie.szl",2);
+			decode("media/encode_sortie.szl","media/quantization/lena_2.ppm");
+			System.out.println("encode/decode Fq 2 Done!");
+
+			Entropy.flushBuffers();
+
+			encode("media/lena.ppm","media/encode_sortie.szl",10);
+			decode("media/encode_sortie.szl","media/quantization/lena_10.ppm");
+			System.out.println("encode/decode Fq 10 Done!");
+
+			Entropy.flushBuffers();
+
+			encode("media/lena.ppm","media/encode_sortie.szl",20);
+			decode("media/encode_sortie.szl","media/quantization/lena_20.ppm");
+			System.out.println("encode/decode Fq 20 Done!");
+
+			Entropy.flushBuffers();
+
+			encode("media/lena.ppm","media/encode_sortie.szl",30);
+			decode("media/encode_sortie.szl","media/quantization/lena_30.ppm");
+			System.out.println("encode/decode Fq 30 Done!");
+
+			Entropy.flushBuffers();
+
+			encode("media/lena.ppm","media/encode_sortie.szl",30);
+			decode("media/encode_sortie.szl","media/quantization/lena_30.ppm");
+			System.out.println("encode/decode Fq 30 Done!");
+
+			Entropy.flushBuffers();
+
+			encode("media/lena.ppm","media/encode_sortie.szl",40);
+			decode("media/encode_sortie.szl","media/quantization/lena_40.ppm");
+			System.out.println("encode/decode Fq 40 Done!");
+
+			Entropy.flushBuffers();
+
+			encode("media/lena.ppm","media/encode_sortie.szl",50);
+			decode("media/encode_sortie.szl","media/quantization/lena_50.ppm");
+			System.out.println("encode/decode Fq 50 Done!");
+
+			Entropy.flushBuffers();
+
+			encode("media/lena.ppm","media/encode_sortie.szl",60);
+			decode("media/encode_sortie.szl","media/quantization/lena_60.ppm");
+			System.out.println("encode/decode Fq 60 Done!");
+
+			Entropy.flushBuffers();
+
+			encode("media/lena.ppm","media/encode_sortie.szl",70);
+			decode("media/encode_sortie.szl","media/quantization/lena_70.ppm");
+			System.out.println("encode/decode Fq 70 Done!");
+
+			Entropy.flushBuffers();
+
+			encode("media/lena.ppm","media/encode_sortie.szl",80);
+			decode("media/encode_sortie.szl","media/quantization/lena_80.ppm");
+			System.out.println("encode/decode Fq 80 Done!");
+
+			Entropy.flushBuffers();
+
+			encode("media/lena.ppm","media/encode_sortie.szl",90);
+			decode("media/encode_sortie.szl","media/quantization/lena_90.ppm");
+			System.out.println("encode/decode Fq 90 Done!");
+
+			Entropy.flushBuffers();
+
+			encode("media/lena.ppm","media/encode_sortie.szl",99);
+			decode("media/encode_sortie.szl","media/quantization/lena_99.ppm");
+			System.out.println("encode/decode Fq 99 Done!");
+
+			System.out.println("Finish !");
+		}
 		else{
 			System.out.println("Error: Missing arguments");
 		}
@@ -111,8 +189,8 @@ public class Main {
 		imageData.setNbColumn(header[1]);
 		imageData.setNbColor(header[2]);
 
-		imageData.setDCList(Entropy.getDCList());
-		imageData.setACList(Entropy.getACList());
+		imageData.setDCList(Entropy.getDCList(header[1],header[0]));
+		imageData.setACList(Entropy.getACList(header[1],header[0]));
 
 		AcDcConversion.reverse(imageData);
 
@@ -141,7 +219,13 @@ public class Main {
 			Entropy.writeDC(dc);
 		}
 		for (int[] ac:imageData.getACList()) {
-			Entropy.writeAC(ac[0],ac[1]);
+
+			if(ac[1]==0){
+				Entropy.writeAC(0,0);
+			}
+			else{
+				Entropy.writeAC(ac[0],ac[1]);
+			}
 		}
 
 		SZLReaderWriter.writeSZLFile(fileName,height,width,qualityFactor);
