@@ -137,7 +137,7 @@ public class AcDcConversionTest {
 
         //We check AC are the sames
         for (int i = 1; i < zigzagVectors.get(0).length; i++) {
-            assertEquals(zigzagVectors.get(0)[i],image.getACList().get(0)[i]);
+            assertEquals(zigzagVectors.get(0)[i],image.getZigzagVectors().get(0)[i]);
         }
 
 

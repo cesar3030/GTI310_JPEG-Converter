@@ -49,26 +49,42 @@ public class ZigZag {
         int[] vector = new int[width*height];
         int index = 0;
 
-        int mvtI = 1; //Variable use to know if the next iteration, i has to move to the right (mvtI=1) or to the left (mvtI=-1)
+        int mvtI = -1;//1; //Variable use to know if the next iteration, i has to move to the right (mvtI=1) or to the left (mvtI=-1)
         int mvtJ = -1; //Variable use to know if the next iteration, j has to move up (mvtJ=-1) or down (mvtI=1)
 
-        vector[index++] = matrix[0][0];
+        //vector[index++] = matrix[0][0];
         int i=0; //index of the matrix row
-        int j=1; //index of the matrix column
+        int j=0; //index of the matrix column
 
-        while(i!=height-1 && j!=width-1) { //While we haven't reach the bottom right cell of the matrix
+        while(index<vector.length) { //While we haven't reach the bottom right cell of the matrix
 
             vector[index++]=matrix[i][j];
 
-            if(i==0 && mvtI==-1){
-                mvtI = 1;
-                mvtJ = -1;
-                j+=1;
+            if((i==0 && mvtI==-1)||(i==height-1 && mvtI==1)){
+
+                if(i==height-1){
+                    j++;
+                    mvtI = -1;
+                    mvtJ = +1;
+                }
+                else{
+                    j++;
+                    mvtI = 1;
+                    mvtJ = -1;
+                }
             }
-            else if(j==0 && mvtI==1){
-                mvtI = -1;
-                mvtJ = +1;
-                i+=1;
+            else if((j==0 && mvtJ==-1)|| (j==width-1 && mvtJ==1)){
+
+                if(j==width-1){
+                    i++;
+                    mvtI = +1;
+                    mvtJ = -1;
+                }
+                else{
+                    i++;
+                    mvtI = -1;
+                    mvtJ = +1;
+                }
             }
             else{
                 i+=mvtI;
@@ -93,31 +109,49 @@ public class ZigZag {
         int[][] matrix = new int[height][width];
         int index = 0;
 
-        int mvtI = 1; //Variable use to know if the next iteration, i has to move to the right (mvtI=1) or to the left (mvtI=-1)
+        int mvtI = -1; //Variable use to know if the next iteration, i has to move to the right (mvtI=1) or to the left (mvtI=-1)
         int mvtJ = -1; //Variable use to know if the next iteration, j has to move up (mvtJ=-1) or down (mvtI=1)
 
-        matrix[0][0] = vector[index++];
+        //matrix[0][0] = vector[index++];
         int i=0; //index of the matrix row
-        int j=1; //index of the matrix column
+        int j=0; //index of the matrix column
 
-        while(i!=height-1 && j!=width-1) { //While we haven't reach the bottom right cell of the matrix
+        while(index<vector.length) { //While we haven't reach the bottom right cell of the matrix
 
             matrix[i][j]=vector[index++];
 
-            if(i==0 && mvtI==-1){
-                mvtI = 1;
-                mvtJ = -1;
-                j+=1;
+            if((i==0 && mvtI==-1)||(i==height-1 && mvtI==1)){
+
+                if(i==height-1){
+                    j++;
+                    mvtI = -1;
+                    mvtJ = +1;
+                }
+                else{
+                    j++;
+                    mvtI = 1;
+                    mvtJ = -1;
+                }
             }
-            else if(j==0 && mvtI==1){
-                mvtI = -1;
-                mvtJ = +1;
-                i+=1;
+            else if((j==0 && mvtJ==-1)|| (j==width-1 && mvtJ==1)){
+
+                if(j==width-1){
+                    i++;
+                    mvtI = +1;
+                    mvtJ = -1;
+                }
+                else{
+                    i++;
+                    mvtI = -1;
+                    mvtJ = +1;
+                }
             }
             else{
                 i+=mvtI;
                 j+=mvtJ;
             }
+
+
         }
 
         return matrix;

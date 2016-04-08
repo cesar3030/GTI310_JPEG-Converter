@@ -24,7 +24,6 @@ public class AcDcConversion {
         ACList = new ArrayList<>();
 
         for (int i = 0; i < image.getZigzagVectors().size(); i++) {
-
             RLC(image.getZigzagVectors().get(i));
             DPCM(image.getZigzagVectors().get(i));
         }
@@ -40,13 +39,13 @@ public class AcDcConversion {
         isFirstDc=true;
         ArrayList<int[]> zigzagVectors = new ArrayList<>();
 
-        int indexDc=0;
-        int indexAc=0;
-
-        while (indexAc < image.getACList().size() && indexDc < image.getDCList().size()){
-            int dc = IDPCM(image.getDCList().get(indexDc++));
-            List<Integer> ac = IRLC(image.getACList(),indexAc);
+        int index=0;
+        List<List<Integer>> acList = IRLC(image.getACList());
+        while (index < acList.size() && index < image.getDCList().size()){
+            int dc = IDPCM(image.getDCList().get(index));
+            List<Integer> ac = acList.get(index);
             zigzagVectors.add(toZigZagVector(dc,ac));
+            index++;
         }
 
         image.setZigzagVectors(zigzagVectors);
@@ -56,11 +55,7 @@ public class AcDcConversion {
 
         int currentValue;
         int nbZeros=0;
-        int islastAc=0; // 1 if true else 0
-
         for (int i = 1; i < vector.length; i++) {
-
-            if(i==vector.length-1)islastAc=1;
 
             currentValue=vector[i];
 
@@ -68,30 +63,84 @@ public class AcDcConversion {
                 nbZeros++;
             }
             else{
-                ACList.add(new int[]{nbZeros,currentValue,islastAc});
+                ACList.add(new int[]{nbZeros,currentValue,0});
                 nbZeros=0;
             }
         }
-    }
 
-    private static List<Integer> IRLC(List<int[]> acRlcList, int indexAc){
-        List<Integer> rowAc = new ArrayList<>();
-        boolean end =false;
-
-        while(!end){
-            int[] acRlc = acRlcList.get(indexAc++);
-
-            for (int i = 0; i < acRlc[0]; i++) {
-                rowAc.add(0);
-            }
-
-            rowAc.add(acRlc[1]);
-
-            if(acRlc[2]==1)
-                end=true;
+        //If the vector ends with a zero(s), we add an EOB
+        if(nbZeros!=0){
+            ACList.add(new int[]{nbZeros,0,0}); //EOB => int[1]=0
         }
 
-        return rowAc;
+        if(ACList.size()>0){
+            //We set to the last int[] AC the value 1 to the index 2 to show that it's the last of the sequence
+            ACList.get(ACList.size()-1)[2]=1;
+        }
+
+    }
+
+    /**
+     * Method that returns a list of list of int (list of int = 63 numbers that we are gonna use to build a 8x8 matrix) .
+     * @param acRlcList
+     * @return
+     */
+    private static List<List<Integer>> IRLC(List<int[]> acRlcList){
+        List<List<Integer>> completeAcList = new ArrayList<>();
+        List<Integer> currentACList = new ArrayList<>();
+        //int index = 0;
+/*
+        for (int i = 0; i < acRlcList.size(); i++) {
+          //  int[] acRlc = acRlcList.get(index++);
+
+            for (int j = 0; j < acRlc[0]; j++) {
+                currentACList.add(0);
+            }
+
+            if(acRlcList.get(i)[1]==0){//EOB
+                completeAcList.add(currentACList);
+                currentACList = new ArrayList<>();
+            }
+            currentACList.add(acRlcList.get(i)[1]);
+
+            if(i>0 && i%((Main.BLOCK_SIZE*Main.BLOCK_SIZE)-1)==0){
+                completeAcList.add(currentACList);
+                currentACList = new ArrayList<>();
+            }
+        }*/
+        int nbData = ((Main.BLOCK_SIZE*Main.BLOCK_SIZE)-1);
+        int nbDataMissing = nbData;
+        int index = 0;
+
+        while (nbDataMissing>0 && index < acRlcList.size()){
+            int[] acRlc = acRlcList.get(index++);
+
+            for (int j = 0; j < acRlc[0]; j++) {
+                currentACList.add(0);
+                nbDataMissing--;
+            }
+
+            if(acRlc[1]==0){//EOB
+                while(currentACList.size()<=nbData)
+                    currentACList.add(0);
+                nbDataMissing = 0;
+            }
+            else{
+                currentACList.add(acRlc[1]);
+                nbDataMissing--;
+            }
+
+            if(nbDataMissing==0){
+                completeAcList.add(currentACList);
+                currentACList = new ArrayList<>();
+                nbDataMissing = nbData;
+            }
+
+        }
+
+        //completeAcList.add(currentACList);
+
+        return completeAcList;
     }
 
     private static void DPCM(int[]vector){
@@ -110,11 +159,11 @@ public class AcDcConversion {
         if(isFirstDc){
             isFirstDc=false;
             lastDc = dc;
-            return dc;
         }
         else{
-            return dc+lastDc;
+            lastDc=dc+lastDc;
         }
+        return lastDc;
     }
 
     private static int[] toZigZagVector(int dc,List<Integer> ac){
@@ -127,10 +176,10 @@ public class AcDcConversion {
 
 
         for (int i = 1; i < vector.length; i++){
-            if(index<size)
+            //if(index<size)
                 vector[i]=ac.get(index++);
-            else
-                vector[i]=0;
+            /*else
+                vector[i]=0;*/
         }
 
         return vector;

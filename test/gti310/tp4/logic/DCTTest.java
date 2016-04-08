@@ -37,7 +37,7 @@ public class DCTTest {
 
     @Test
     public void testProcessDCT() throws Exception {
-        DCT.processDCT(image);
+        DCT.process(image);
         int[][][] convertedMatrix = image.getImageMatrix();
 
         for (int i = 0; i < matrix.length; i++) {
@@ -46,7 +46,7 @@ public class DCTTest {
                     int error = Math.abs(dctMatrix[i][j][k]-convertedMatrix[i][j][k]);
 
                     //We check that the error range is not > 4
-                    assertTrue( error <= 4 );
+                    assertTrue( error <= 3 );
 
                     System.out.print(convertedMatrix[i][j][k]+"|"+error+"  ");
                 }
@@ -58,7 +58,7 @@ public class DCTTest {
 
     @Test
     public void testProcessIDCT() throws Exception {
-        DCT.processIDCT(dctImage);
+        DCT.reverse(dctImage);
         int[][][] convertedMatrix = image.getImageMatrix();
 
         for (int i = 0; i < matrix.length; i++) {
@@ -66,7 +66,7 @@ public class DCTTest {
                 for (int k = 0; k < matrix[i][j].length; k++) {
                     int error = Math.abs(matrix[i][j][k]-convertedMatrix[i][j][k]);
 
-                    assertEquals(matrix[i][j][k],convertedMatrix[i][j][k] );
+                    assertEquals(matrix[i][j][k],convertedMatrix[i][j][k]);
 
                     System.out.print(convertedMatrix[i][j][k]+"|"+error+"  ");
                 }
@@ -77,8 +77,8 @@ public class DCTTest {
 
     @Test
     public void testProcessDCTAndIDCT() throws Exception {
-        DCT.processDCT(image);
-        DCT.processIDCT(image);
+        DCT.process(image);
+        DCT.reverse(image);
 
         int[][][] convertedMatrix = image.getImageMatrix();
 

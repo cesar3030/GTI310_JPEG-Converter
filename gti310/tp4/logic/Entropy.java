@@ -1,5 +1,8 @@
 package gti310.tp4.logic;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * The Entropy class is used to write the DC and AC coefficients after DPCM or
  * RLE compression. It does not write the information to a file, but to a
@@ -310,6 +313,48 @@ public class Entropy {
 		
 		/* write value to buffer */		
 		write(binary, pair[0] + HUFFMAN_DC[SIZE][pair[0]]);
+	}
+
+	/**
+	 * Method that return a list of AC
+	 * @return The list of AC
+     */
+	public static List<int[]> getACList(){
+		List<int[]> ACList = new ArrayList<>();
+
+		int[] ac = readAC();
+
+		while(ac!=null){
+			ACList.add(ac);
+			ac = readAC();
+			System.out.println("ac[0]+ac[1]+ ac.length = " + ac[0]+ac[1]+"  "+ac.length);
+		}
+
+		if(ACList.size()==0)
+			return null;
+		else
+			return ACList;
+	}
+
+	/**
+	 * Method that return a list of DC
+	 * @return The list of DC
+	 */
+	public static List<Integer> getDCList(){
+		List<Integer> DCList = new ArrayList<>();
+
+		int dc = readDC();
+
+		while(dc != 0xffffffff){
+			DCList.add(dc);
+			dc = readDC();
+			System.out.println("dc = " + dc);
+		}
+
+		if(DCList.size()==0)
+			return null;
+		else
+			return DCList;
 	}
 	
 	/**
