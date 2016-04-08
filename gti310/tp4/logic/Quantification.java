@@ -7,15 +7,11 @@ import gti310.tp4.model.ImageData;;
 public class Quantification {
 
 	// Attributs de classes
-	QuantificationTables t = new QuantificationTables();
+	private static final QuantificationTables t = new QuantificationTables();
 	private static int fQ;
 	private static double alpha;
 	private final static int FQMAX = 100;
 	private final static int FQMIN = 0;
-
-	// Tableau de quantification
-	private static int[][] qCbCr;
-	private static int[][] qY;
 
 	// tableau de DCT
 	private static ArrayList<int[][]> matriceY;
@@ -47,9 +43,8 @@ public class Quantification {
 	/*
 	 * Methode effectuant la quantification
 	 */
-	public static void ProcessQuantification(ImageData img, int fQRecu) {
+	public static void process(ImageData img, int fQRecu) {
 
-		
 		fQ = fQRecu;
 		checkfQ();
 		calculAlpha();
@@ -79,7 +74,7 @@ public class Quantification {
 
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
-				recu[i][j] = (int) Math.round((recu[i][j]) / (alpha * qY[i][j]));
+				recu[i][j] = (int) Math.round((recu[i][j]) / (alpha * t.getMATRIXQY()[i][j]));
 			}
 		}
 	}
@@ -90,14 +85,14 @@ public class Quantification {
 	private static void quantificationCbCr(int[][] recu) {
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
-				recu[i][j] = (int) Math.round((recu[i][j]) / (alpha * qCbCr[i][j]));
+				recu[i][j] = (int) Math.round((recu[i][j]) / (alpha * t.getMATRIXQCBCR()[i][j]));
 			}
 		}
 	}
 	/*
 	 * Methode permetant le process de la quantification inverse
 	 */
-	public static void ProcessReverseQuantification(ImageData img,int fQRecu) {
+	public static void reverse(ImageData img, int fQRecu) {
 		 ArrayList<int[][]> reserveMatriceY = img.getYMatrices();
 		 ArrayList<int[][]> reserveMatriceCB = img.getCbMatrices();
 		 ArrayList<int[][]> reserveMatriceCR = img.getCrMatrices();
@@ -126,7 +121,7 @@ public class Quantification {
 	private static void reverseQuantificationCbCr(int[][] recu) {
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
-				recu[i][j] = (int) Math.round((recu[i][j]) * (alpha * qY[i][j]));
+				recu[i][j] = (int) Math.round((recu[i][j]) * (alpha * t.getMATRIXQY()[i][j]));
 			}
 		}
 	}
@@ -137,7 +132,7 @@ public class Quantification {
 	private static void reverseQuantificationY(int[][] recu) {
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
-				recu[i][j] = (int) Math.round((recu[i][j]) * (alpha * qCbCr[i][j]));
+				recu[i][j] = (int) Math.round((recu[i][j]) * (alpha * t.getMATRIXQCBCR()[i][j]));
 			}
 		}
 	}

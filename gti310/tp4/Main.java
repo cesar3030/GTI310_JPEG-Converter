@@ -68,11 +68,11 @@ public class Main {
 	 * @param qualityFactor
      */
 	public static void encode(String sourceFile, String newFile, int qualityFactor){
-		PPMReaderWriter readerWriter = new PPMReaderWriter();
+		//PPMReaderWriter readerWriter = new PPMReaderWriter();
 		RGBtoYCbCr yCbCrConverter = new RGBtoYCbCr();
 
 		//We convert the file into a 3D matrix that contains the image
-		int[][][] sourceImage = readerWriter.readPPMFile(sourceFile);
+		int[][][] sourceImage = PPMReaderWriter.readPPMFile(sourceFile);
 
 		//We convert the RGB matrix into a YCbCr martix
 		sourceImage = yCbCrConverter.conversionRGBtoYCbCr(sourceImage);
@@ -84,6 +84,7 @@ public class Main {
 		DCT.process(imageData);
 
 		//We do the quantification
+		Quantification.process(imageData,qualityFactor);
 
 		//We proceed zigzig mechanism on the image
 		ZigZag.process(imageData);
@@ -92,7 +93,7 @@ public class Main {
 		AcDcConversion.process(imageData);
 
 		//We generate the new image
-		generateOutputFile(imageData,sourceFile,qualityFactor);
+		generateOutputFile(imageData,newFile,qualityFactor);
 
 	}
 
@@ -102,7 +103,28 @@ public class Main {
 	 * @param newFile
 	 */
 	public static void decode(String sourceFile, String newFile){
+		RGBtoYCbCr yCbCrConverter = new RGBtoYCbCr();
+		int[] header = SZLReaderWriter.readSZLFile(sourceFile);
 
+		ImageData imageData = new ImageData();
+		imageData.setNbRow(header[0]);
+		imageData.setNbColumn(header[1]);
+		imageData.setNbColor(header[2]);
+
+		imageData.setDCList(Entropy.getDCList());
+		imageData.setACList(Entropy.getACList());
+
+		AcDcConversion.reverse(imageData);
+
+		ZigZag.reverse(imageData);
+
+		Quantification.reverse(imageData,header[3]);
+
+		DCT.reverse(imageData);
+
+		int[][][] rbgImage = yCbCrConverter.conversionYCbCrtoRGB(imageData.getImageMatrix());
+
+		PPMReaderWriter.writePPMFile(newFile,rbgImage);
 	}
 
 
@@ -115,11 +137,11 @@ public class Main {
 		int height = imageData.getNbRow();
 		int width = imageData.getNbColumn();
 
-		for (int[] ac:imageData.getACList()) {
-			Entropy.writeAC(ac[0],ac[1]);
-		}
 		for (int dc:imageData.getDCList()) {
 			Entropy.writeDC(dc);
+		}
+		for (int[] ac:imageData.getACList()) {
+			Entropy.writeAC(ac[0],ac[1]);
 		}
 
 		SZLReaderWriter.writeSZLFile(fileName,height,width,qualityFactor);
