@@ -9,6 +9,8 @@ import gti310.tp4.model.ImageData;
  */
 public class DCT {
 
+    private static double[][] COS = null;
+
     /**
      * Method to calculate the DCT of the given image
      * @param image
@@ -64,7 +66,7 @@ public class DCT {
 
         for (int u = 0; u < Main.BLOCK_SIZE; u++) {
             for (int v = 0; v < Main.BLOCK_SIZE; v++) {
-                dctMatrix[u][v] = (int) DCTFormula(u,v,matrix);
+                dctMatrix[u][v] = DCTFormula(u,v,matrix);
             }
         }
 
@@ -81,14 +83,14 @@ public class DCT {
 
         for (int u = 0; u < Main.BLOCK_SIZE; u++) {
             for (int v = 0; v < Main.BLOCK_SIZE; v++) {
-                dctMatrix[u][v] = (int) IDCTFormula(u,v,matrix);
+                dctMatrix[u][v] = IDCTFormula(u,v,matrix);
             }
         }
 
         return dctMatrix;
     }
 
-    private static double DCTFormula(int u,int v,int [][] matrix){
+    private static int DCTFormula(int u,int v,int [][] matrix){
         double sum = 0.0;
         for (int i = 0; i < Main.BLOCK_SIZE; i++) {
             for (int j = 0; j < Main.BLOCK_SIZE; j++) {
@@ -96,18 +98,18 @@ public class DCT {
             }
         }
 
-        return ((C(u)*C(v))/4.0)*Math.ceil(sum);
+        return (int)Math.round((C(u)*C(v)/4)*sum);
     }
 
-    private static double IDCTFormula(int u,int v,int [][] matrix){
+    private static int IDCTFormula(int i,int j,int [][] matrix){
         double sum = 0.0;
-        for (int i = 0; i < Main.BLOCK_SIZE; i++) {
-            for (int j = 0; j < Main.BLOCK_SIZE; j++) {
-                sum += ((C(u)*C(v))/4.0)*(cosFormula(i,u)*cosFormula(j,v)*matrix[i][j]);
+        for (int u = 0; u < Main.BLOCK_SIZE; u++) {
+            for (int v = 0; v < Main.BLOCK_SIZE; v++) {
+                sum += (C(u)*C(v)/4)*(cosFormula(i,u)*cosFormula(j,v)*matrix[u][v]);
             }
         }
 
-        return sum;
+        return (int)Math.round(sum);
     }
 
     private static double C(int i){
@@ -115,7 +117,15 @@ public class DCT {
     }
 
     private static double cosFormula(int iteration,int matrixPosition){
-        return Math.cos((((2.0*iteration)+1.0)*matrixPosition*Math.PI)/16.0);
+        if(COS==null){
+            COS = new double[8][8];
+            for (int i=0;i<8;i++){
+                for (int j=0;j<8;j++){
+                    COS[i][j]=Math.cos(((2*i+1)*j*Math.PI/16));
+                }
+            }
+        }
+        return COS[iteration][matrixPosition];
     }
 
 

@@ -20,8 +20,8 @@ public class RGBtoYCbCr {
 		for (int i = 0; i < H; i++) {
 			for (int j = 0; j < V; j++) {
 				YCbCr[Main.Y][i][j] = (int) ((0.299 * imageRecu[Main.R][i][j]) + (0.587 * imageRecu[Main.G][i][j])+ (0.114 * imageRecu[Main.B][i][j]));
-				YCbCr[Main.Cb][i][j] = (int)((-0.168736 * imageRecu[Main.R][i][j]) + (-0.331264 * imageRecu[Main.G][i][j]) + (0.5 * imageRecu[Main.B][i][j])-128);
-				YCbCr[Main.Cr][i][j] = (int)((0.5 * imageRecu[Main.R][i][j]) + (-0.418688 * imageRecu[Main.G][i][j]) + (-0.081312 * imageRecu[Main.B][i][j])-128);
+				YCbCr[Main.Cb][i][j] = (int)((-0.168736 * imageRecu[Main.R][i][j]) - (0.331264 * imageRecu[Main.G][i][j]) + (0.5 * imageRecu[Main.B][i][j])+128);
+				YCbCr[Main.Cr][i][j] = (int)((0.5 * imageRecu[Main.R][i][j]) - (0.418688 * imageRecu[Main.G][i][j]) - (0.081312 * imageRecu[Main.B][i][j])+128);
 			}
 		}
 		System.out.println("Conversion vers YCbCr terminer");
@@ -38,8 +38,6 @@ public class RGBtoYCbCr {
 
 		int H = imageRecu[0].length;
 		int V = imageRecu[0][0].length;
-		
-		
 		
 		int[][][] RGB = new int[Main.COLOR_SPACE_SIZE][H][V];
 		for (int i = 0; i < H; i++) {

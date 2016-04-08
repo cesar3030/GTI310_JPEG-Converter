@@ -23,9 +23,10 @@ public class Quantification {
 	 */
 	private static void calculAlpha() {
 
-		if (1 < fQ && fQ < 50.0) {
-			alpha = (fQ / 50.0);
-		} else {
+		if (1 <= fQ && fQ <= 50.0) {
+			alpha = (50.0 / fQ );
+		}
+		else if(50< fQ && fQ <= 99){
 			alpha = (200.0 - (2.0 * fQ)) / 100.0;
 		}
 
