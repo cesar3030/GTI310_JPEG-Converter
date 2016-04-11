@@ -1,5 +1,6 @@
 package gti310.tp4.model;
 
+import gti310.tp4.model.ImageData;
 import org.junit.Before;
 import org.junit.Test;
 

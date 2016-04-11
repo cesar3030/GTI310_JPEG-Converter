@@ -126,6 +126,31 @@ public class EncodageFlowTest {
         PPMReaderWriter.writePPMFile("test/media/test_RGB_to_YCbCr_to_RGB_plus_DCT.ppm",RGBImage);
     }
 
+    @Test
+    public void testColorSpacePlusDCTPlusQuantizationBackAndForth() throws Exception {
+        //PPMReaderWriter readerWriter = new PPMReaderWriter();
+        RGBtoYCbCr yCbCrConverter = new RGBtoYCbCr();
+
+        //We convert the file into a 3D matrix that contains the image
+        int[][][] sourceImage = PPMReaderWriter.readPPMFile("test/media/lena.ppm");
+
+        //We convert the RGB matrix into a YCbCr martix
+        int[][][]YcbCrImage = yCbCrConverter.conversionRGBtoYCbCr(sourceImage);
+
+        //We create a object imageData for an easiest manipulation of the image
+        ImageData imageData = new ImageData(YcbCrImage);
+
+        DCT.process(imageData);
+        Quantification.process(imageData,50);
+
+        Quantification.reverse(imageData,50);
+        DCT.reverse(imageData);
+        //We convert the YCbCr matrix into a RBG martix
+        int[][][]RGBImage = yCbCrConverter.conversionYCbCrtoRGB(imageData.getImageMatrix());
+
+        PPMReaderWriter.writePPMFile("test/media/test_RGB_to_YCbCr_to_RGB_plus_DCT_plus_Quantization.ppm",RGBImage);
+    }
+
     /**
      * Method that test if two zigzag are identical.
      * @param expectedZigzag

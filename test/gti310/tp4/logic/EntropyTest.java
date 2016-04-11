@@ -4,6 +4,7 @@ import gti310.tp4.Main;
 import gti310.tp4.model.ImageData;
 import gti310.tp4.util.PPMReaderWriter;
 import gti310.tp4.util.SZLReaderWriter;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.List;
@@ -15,6 +16,12 @@ import static org.junit.Assert.*;
  */
 public class EntropyTest {
 
+    private static final int qualityFactor = 40;
+    @BeforeClass
+    public static void setUp(){
+        Main.encode("test/media/lena.ppm","test/media/encode_sortie.szl",qualityFactor);
+    }
+
     @Test
     public void testDecodeSZLFile() throws Exception {
 
@@ -25,7 +32,7 @@ public class EntropyTest {
         RGBtoYCbCr yCbCrConverter = new RGBtoYCbCr();
 
         //We convert the file into a 3D matrix that contains the image
-        int[][][] sourceImage = PPMReaderWriter.readPPMFile("media/lena.ppm");
+        int[][][] sourceImage = PPMReaderWriter.readPPMFile("test/media/lena.ppm");
 
         //We convert the RGB matrix into a YCbCr martix
         sourceImage = yCbCrConverter.conversionRGBtoYCbCr(sourceImage);
@@ -37,7 +44,7 @@ public class EntropyTest {
         DCT.process(imageData);
 
         //We do the quantification
-        Quantification.process(imageData,40);
+        Quantification.process(imageData,qualityFactor);
 
         int[][][] imageAfterQuatization = imageData.getImageMatrix();
 
@@ -53,7 +60,7 @@ public class EntropyTest {
          * is the same that the ImageData from the same image (PPM) before the entropy
          */
 
-        int[] header = SZLReaderWriter.readSZLFile("media/encode_sortie.szl");
+        int[] header = SZLReaderWriter.readSZLFile("test/media/encode_sortie.szl");
 
         ImageData imageData2 = new ImageData();
         imageData2.setNbRow(header[0]);

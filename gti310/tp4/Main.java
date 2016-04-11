@@ -62,74 +62,9 @@ public class Main {
 			System.out.println("--------------------------------");
 
 			encode("media/lena.ppm","media/encode_sortie.szl",2);
-			decode("media/encode_sortie.szl","media/quantization/lena_2.ppm");
-			System.out.println("encode/decode Fq 2 Done!");
-
-			Entropy.flushBuffers();
-
-			encode("media/lena.ppm","media/encode_sortie.szl",10);
-			decode("media/encode_sortie.szl","media/quantization/lena_10.ppm");
-			System.out.println("encode/decode Fq 10 Done!");
-
-			Entropy.flushBuffers();
-
-			encode("media/lena.ppm","media/encode_sortie.szl",20);
-			decode("media/encode_sortie.szl","media/quantization/lena_20.ppm");
-			System.out.println("encode/decode Fq 20 Done!");
-
-			Entropy.flushBuffers();
-
-			encode("media/lena.ppm","media/encode_sortie.szl",30);
-			decode("media/encode_sortie.szl","media/quantization/lena_30.ppm");
-			System.out.println("encode/decode Fq 30 Done!");
-
-			Entropy.flushBuffers();
-
-			encode("media/lena.ppm","media/encode_sortie.szl",30);
-			decode("media/encode_sortie.szl","media/quantization/lena_30.ppm");
-			System.out.println("encode/decode Fq 30 Done!");
-
-			Entropy.flushBuffers();
-
-			encode("media/lena.ppm","media/encode_sortie.szl",40);
-			decode("media/encode_sortie.szl","media/quantization/lena_40.ppm");
-			System.out.println("encode/decode Fq 40 Done!");
-
-			Entropy.flushBuffers();
-
-			encode("media/lena.ppm","media/encode_sortie.szl",50);
-			decode("media/encode_sortie.szl","media/quantization/lena_50.ppm");
-			System.out.println("encode/decode Fq 50 Done!");
-
-			Entropy.flushBuffers();
-
-			encode("media/lena.ppm","media/encode_sortie.szl",60);
-			decode("media/encode_sortie.szl","media/quantization/lena_60.ppm");
-			System.out.println("encode/decode Fq 60 Done!");
-
-			Entropy.flushBuffers();
-
-			encode("media/lena.ppm","media/encode_sortie.szl",70);
-			decode("media/encode_sortie.szl","media/quantization/lena_70.ppm");
-			System.out.println("encode/decode Fq 70 Done!");
-
-			Entropy.flushBuffers();
-
-			encode("media/lena.ppm","media/encode_sortie.szl",80);
-			decode("media/encode_sortie.szl","media/quantization/lena_80.ppm");
-			System.out.println("encode/decode Fq 80 Done!");
-
-			Entropy.flushBuffers();
-
-			encode("media/lena.ppm","media/encode_sortie.szl",90);
-			decode("media/encode_sortie.szl","media/quantization/lena_90.ppm");
-			System.out.println("encode/decode Fq 90 Done!");
-
-			Entropy.flushBuffers();
-
-			encode("media/lena.ppm","media/encode_sortie.szl",99);
-			decode("media/encode_sortie.szl","media/quantization/lena_99.ppm");
-			System.out.println("encode/decode Fq 99 Done!");
+			encodeAllQualityFactor("media/lena.ppm","media/quantization/lena/lena_");
+			encodeAllQualityFactor("media/mandrill.ppm","media/quantization/mandrill/mandrill");
+			encodeAllQualityFactor("media/peppers.ppm","media/quantization/peppers/peppers");
 
 			System.out.println("Finish !");
 		}
@@ -230,5 +165,79 @@ public class Main {
 
 		SZLReaderWriter.writeSZLFile(fileName,height,width,qualityFactor);
 
+	}
+
+	private static void encodeAllQualityFactor(String sourceFile,String outFileName){
+		encode(sourceFile,"media/encode_sortie.szl",2);
+		decode("media/encode_sortie.szl",outFileName+"_2.ppm");
+		System.out.println("encode/decode "+sourceFile+"  Fq 2 Done!");
+
+		Entropy.flushBuffers();
+
+		encode(sourceFile,"media/encode_sortie.szl",10);
+		decode("media/encode_sortie.szl",outFileName+"_10.ppm");
+		System.out.println("encode/decode "+sourceFile+"  Fq 10 Done!");
+
+		Entropy.flushBuffers();
+
+		encode(sourceFile,"media/encode_sortie.szl",20);
+		decode("media/encode_sortie.szl",outFileName+"_20.ppm");
+		System.out.println("encode/decode "+sourceFile+"  Fq 20 Done!");
+
+		Entropy.flushBuffers();
+
+		encode(sourceFile,"media/encode_sortie.szl",30);
+		decode("media/encode_sortie.szl",outFileName+"_30.ppm");
+		System.out.println("encode/decode "+sourceFile+"  Fq 30 Done!");
+
+		Entropy.flushBuffers();
+
+		encode(sourceFile,"media/encode_sortie.szl",30);
+		decode("media/encode_sortie.szl",outFileName+"_30.ppm");
+		System.out.println("encode/decode "+sourceFile+"  Fq 30 Done!");
+
+		Entropy.flushBuffers();
+
+		encode(sourceFile,"media/encode_sortie.szl",40);
+		decode("media/encode_sortie.szl",outFileName+"_40.ppm");
+		System.out.println("encode/decode "+sourceFile+"  Fq 40 Done!");
+
+		Entropy.flushBuffers();
+
+		encode(sourceFile,"media/encode_sortie.szl",50);
+		decode("media/encode_sortie.szl",outFileName+"_50.ppm");
+		System.out.println("encode/decode "+sourceFile+"  Fq 50 Done!");
+
+		Entropy.flushBuffers();
+
+		encode(sourceFile,"media/encode_sortie.szl",60);
+		decode("media/encode_sortie.szl",outFileName+"_60.ppm");
+		System.out.println("encode/decode "+sourceFile+"  Fq 60 Done!");
+
+		Entropy.flushBuffers();
+
+		encode(sourceFile,"media/encode_sortie.szl",70);
+		decode("media/encode_sortie.szl",outFileName+"_70.ppm");
+		System.out.println("encode/decode "+sourceFile+"  Fq 70 Done!");
+
+		Entropy.flushBuffers();
+
+		encode(sourceFile,"media/encode_sortie.szl",80);
+		decode("media/encode_sortie.szl",outFileName+"_80.ppm");
+		System.out.println("encode/decode "+sourceFile+"  Fq 80 Done!");
+
+		Entropy.flushBuffers();
+
+		encode(sourceFile,"media/encode_sortie.szl",90);
+		decode("media/encode_sortie.szl",outFileName+"_90.ppm");
+		System.out.println("encode/decode "+sourceFile+"  Fq 90 Done!");
+
+		Entropy.flushBuffers();
+
+		encode(sourceFile,"media/encode_sortie.szl",99);
+		decode("media/encode_sortie.szl",outFileName+"_99.ppm");
+		System.out.println("encode/decode "+sourceFile+"  Fq 99 Done!");
+
+		Entropy.flushBuffers();
 	}
 }
