@@ -13,6 +13,7 @@ public class DCT {
 
     /**
      * Method to calculate the DCT of the given image
+     * O(N^6) (= O(N^6 * k) C: nb matrices in the ImageData object)
      * @param image
      */
     public static void process(ImageData image){
@@ -36,6 +37,7 @@ public class DCT {
 
     /**
      * Method to calculate the IDCT of the given image
+     * O(N^6) (= O(N^6 * k) C: nb matrices in the ImageData object)
      * @param image
      */
     public static void reverse(ImageData image){
@@ -58,6 +60,7 @@ public class DCT {
 
     /**
      * Method that return the corresponding DCT matrix
+     * O(N^6)
      * @param matrix the matrix we want to convert
      * @return The matrix converted
      */
@@ -75,6 +78,7 @@ public class DCT {
 
     /**
      * Method that return the corresponding IDCT matrix
+     * O(N^6)
      * @param matrix the matrix we want to convert
      * @return The matrix converted
      */
@@ -90,6 +94,14 @@ public class DCT {
         return dctMatrix;
     }
 
+    /**
+     * DCT Formula
+     * O(N^4)
+     * @param u
+     * @param v
+     * @param matrix
+     * @return
+     */
     private static int DCTFormula(int u,int v,int [][] matrix){
         double sum = 0.0;
         for (int i = 0; i < Main.BLOCK_SIZE; i++) {
@@ -101,6 +113,14 @@ public class DCT {
         return (int)Math.round((C(u)*C(v)/4)*sum);
     }
 
+    /**
+     * IDCT Formula
+     * O(N^4)
+     * @param i
+     * @param j
+     * @param matrix
+     * @return
+     */
     private static int IDCTFormula(int i,int j,int [][] matrix){
         double sum = 0.0;
         for (int u = 0; u < Main.BLOCK_SIZE; u++) {
@@ -112,10 +132,22 @@ public class DCT {
         return (int)Math.round(sum);
     }
 
+    /**
+     * Method that return the C value corresponding
+     * O(1)
+     * @param i
+     * @return
+     */
     private static double C(int i){
         return i == 0 ? (1/Math.sqrt(2)) : 1.0;
     }
 
+    /**
+     * O(N^2)
+     * @param iteration
+     * @param matrixPosition
+     * @return
+     */
     private static double cosFormula(int iteration,int matrixPosition){
         if(COS==null){
             COS = new double[8][8];

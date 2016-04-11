@@ -35,6 +35,7 @@ public class ImageData {
 
     /**
      * Constructor that takes a 3 dimensions int array
+     * O(N^5)
      * @param image the image
      */
     public ImageData(int[][][] image){
@@ -70,6 +71,7 @@ public class ImageData {
 
     /**
      * Method that returns the matrix stored at the given index
+     * O(1)
      * @param index Index of the matrix
      * @return the matrix
      * @throws IndexOutOfBoundsException
@@ -84,6 +86,7 @@ public class ImageData {
 
     /**
      * Method that returns the number of matices stored inside the list of matrices
+     * O(1)
      * @return nb matrices
      */
     public int getNbMatrices(){
@@ -92,6 +95,7 @@ public class ImageData {
 
     /**
      * Method that set the given martix into the list of matrices at the given index.
+     * O(1)
      * @param index     the index where it needs to be inserted
      * @param matrix    the matrix to be inserted
      * @throws IndexOutOfBoundsException
@@ -107,6 +111,7 @@ public class ImageData {
 
     /**
      * Method that returns the sub matrices that contains Y values
+     * O(N)
      * @return ArrayList<int[][]> Y values in matrices
      */
     public ArrayList<int[][]> getYMatrices(){
@@ -121,6 +126,7 @@ public class ImageData {
 
     /**
      * Method that returns the sub matrices that contains Cb values
+     * O(N)
      * @return ArrayList<int[][]> Cb values in matrices
      */
     public ArrayList<int[][]> getCbMatrices(){
@@ -135,6 +141,7 @@ public class ImageData {
 
     /**
      * Method that returns the sub matrices that contains Cr values
+     * O(N)
      * @return ArrayList<int[][]> Cr values in matrices
      */
     public ArrayList<int[][]> getCrMatrices(){
@@ -145,12 +152,17 @@ public class ImageData {
         return Cr_Matrices;
     }
 
+    /**
+     * Getter
+     * @return
+     */
     public List<int[][]> getMatricesList() {
         return matricesList;
     }
 
     /**
      * Method that convert the Matrices list into a 3 dimensions Matrix.
+     * O(N^5)
      */
     public int[][][] getImageMatrix(){
 

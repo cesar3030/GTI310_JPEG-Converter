@@ -18,6 +18,11 @@ public class AcDcConversion {
     //used by IDPMC
     private static boolean isFirstDc;
 
+    /**
+     * Method that process to the AC/DC conversion
+     * O(N^2)
+     * @param image
+     */
     public static void process(ImageData image){
 
         DCList = new ArrayList<>();
@@ -35,6 +40,11 @@ public class AcDcConversion {
         DCList=null;
     }
 
+    /**
+     * Method that reverse the process of AC DC conversion
+     * O(N^2)
+     * @param image
+     */
     public static void reverse(ImageData image){
         isFirstDc=true;
         ArrayList<int[]> zigzagVectors = new ArrayList<>();
@@ -51,6 +61,11 @@ public class AcDcConversion {
         image.setZigzagVectors(zigzagVectors);
     }
 
+    /**
+     * Calculate the RLC of the given vector and store the result in the ACList
+     * O(N)
+     * @param vector
+     */
     private static void RLC(int[] vector){
 
         int currentValue;
@@ -82,32 +97,14 @@ public class AcDcConversion {
 
     /**
      * Method that returns a list of list of int (list of int = 63 numbers that we are gonna use to build a 8x8 matrix) .
+     * O(N^2)
      * @param acRlcList
      * @return
      */
     private static List<List<Integer>> IRLC(List<int[]> acRlcList){
         List<List<Integer>> completeAcList = new ArrayList<>();
         List<Integer> currentACList = new ArrayList<>();
-        //int index = 0;
-/*
-        for (int i = 0; i < acRlcList.size(); i++) {
-          //  int[] acRlc = acRlcList.get(index++);
 
-            for (int j = 0; j < acRlc[0]; j++) {
-                currentACList.add(0);
-            }
-
-            if(acRlcList.get(i)[1]==0){//EOB
-                completeAcList.add(currentACList);
-                currentACList = new ArrayList<>();
-            }
-            currentACList.add(acRlcList.get(i)[1]);
-
-            if(i>0 && i%((Main.BLOCK_SIZE*Main.BLOCK_SIZE)-1)==0){
-                completeAcList.add(currentACList);
-                currentACList = new ArrayList<>();
-            }
-        }*/
         int nbData = ((Main.BLOCK_SIZE*Main.BLOCK_SIZE)-1);
         int nbDataMissing = nbData;
         int index = 0;
@@ -138,11 +135,14 @@ public class AcDcConversion {
 
         }
 
-        //completeAcList.add(currentACList);
-
         return completeAcList;
     }
 
+    /**
+     * Method that calculate the DPCM of the given vector
+     * 0(1)
+     * @param vector
+     */
     private static void DPCM(int[]vector){
         int nbDc = DCList.size();
         if(nbDc>0){
@@ -154,6 +154,11 @@ public class AcDcConversion {
         lastDc=vector[0];
     }
 
+    /**
+     * Method that return the IDPCM using the last dc calculate
+     * 0(1)
+     * @param dc
+     */
     private static int IDPCM(int dc){
 
         if(isFirstDc){
@@ -166,20 +171,22 @@ public class AcDcConversion {
         return lastDc;
     }
 
+    /**
+     * Method that convert a DC and a list of AC into a ZigZag vector
+     * O(N)
+     * @param dc
+     * @param ac
+     * @return
+     */
     private static int[] toZigZagVector(int dc,List<Integer> ac){
 
-        int size = ac.size();
         int[] vector = new int[Main.BLOCK_SIZE*Main.BLOCK_SIZE];
         int index = 0;
 
         vector[0]=dc;
 
-
         for (int i = 1; i < vector.length; i++){
-            //if(index<size)
                 vector[i]=ac.get(index++);
-            /*else
-                vector[i]=0;*/
         }
 
         return vector;
