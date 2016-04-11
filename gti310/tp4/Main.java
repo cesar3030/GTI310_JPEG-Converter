@@ -106,6 +106,8 @@ public class Main {
 		//We convert the file into a 3D matrix that contains the image
 		int[][][] sourceImage = PPMReaderWriter.readPPMFile(sourceFile);
 
+		checkValidMatrix(sourceImage);
+
 		//We convert the RGB matrix into a YCbCr martix
 		sourceImage = yCbCrConverter.conversionRGBtoYCbCr(sourceImage);
 
@@ -262,5 +264,12 @@ public class Main {
 		System.out.println("encode/decode "+sourceFile+"  Fq 99 Done!");
 
 		Entropy.flushBuffers();
+	}
+
+	private static void checkValidMatrix(int[][][] image) {
+		if(image.length!=3 || image[0].length%8!=0 || image[0][0].length%8!=0 ){
+			System.out.println("Wrong image matrix");
+			System.exit(0);
+		}
 	}
 }
