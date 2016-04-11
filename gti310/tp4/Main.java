@@ -50,10 +50,28 @@ public class Main {
 		System.out.println("Squeeze Light Media Codec !");
 
 		if(args.length == 2){
-			decode(args[0],args[1]);
+			try{
+				decode(args[0],args[1]);
+			}
+			catch (Exception e){
+				System.out.println("An error occured during the process of decoding. Please make sure the you gave the right path of your files");
+			}
 		}
 		else if(args.length == 3){
-			encode(args[0],args[1],Integer.parseInt(args[2]));
+			int qualityFactor = Integer.parseInt(args[2]);
+			if(qualityFactor<1 || qualityFactor>99){
+				System.out.println("Erreur de facteur de qualite. 0<fq<100 ");
+				System.exit(1);
+			}
+			else{
+				try {
+					encode(args[0],args[1],Integer.parseInt(args[2]));
+				}
+				catch (Exception e){
+					System.out.println("An error occured during the process of encoding. Please make sure the you gave the right path of your files");
+				}
+			}
+
 		}
 		else if(args.length == 4){
 
@@ -76,6 +94,7 @@ public class Main {
 
 	/**
 	 * Encode the given file
+	 * 0(N^5)
 	 * @param sourceFile
 	 * @param newFile
 	 * @param qualityFactor
@@ -112,11 +131,13 @@ public class Main {
 
 	/**
 	 * decode the given file
+	 * 0(N^5)
 	 * @param sourceFile
 	 * @param newFile
 	 */
 	public static void decode(String sourceFile, String newFile){
 		RGBtoYCbCr yCbCrConverter = new RGBtoYCbCr();
+
 		int[] header = SZLReaderWriter.readSZLFile(sourceFile);
 
 		ImageData imageData = new ImageData();
@@ -143,6 +164,7 @@ public class Main {
 
 	/**
 	 * Method that generate the file that contains the encoded picture
+	 * O(N) N: nb elements in AC List
 	 * @param imageData	Data of the image
      */
 	private static void generateOutputFile(ImageData imageData,String fileName,int qualityFactor) {
@@ -167,6 +189,7 @@ public class Main {
 
 	}
 
+	//Test Method
 	private static void encodeAllQualityFactor(String sourceFile,String outFileName){
 		encode(sourceFile,"media/encode_sortie.szl",2);
 		decode("media/encode_sortie.szl",outFileName+"_2.ppm");

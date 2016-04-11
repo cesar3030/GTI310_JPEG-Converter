@@ -10,7 +10,7 @@ public class RGBtoYCbCr {
 	
 	/**
 	 * Methode permettant la conversion d'une image de format RGB vers YCbCr
-	 * 
+	 * O(N^2)  (O(N^2 * 3))
 	 */
 	public int[][][] conversionRGBtoYCbCr(int[][][] imageRecu) {
 
@@ -32,7 +32,7 @@ public class RGBtoYCbCr {
 
 	/**
 	 * Methode permettant la conversion d'une image de format RGB vers YCbCr
-	 * 
+	 * O(N^2)  (O(N^2 * 3))
 	 */
 	public int[][][] conversionYCbCrtoRGB(int[][][] imageRecu) {
 
@@ -53,7 +53,7 @@ public class RGBtoYCbCr {
 				
 			}
 		}
-		System.out.println("Conversion vers RGB terminer");
+		System.out.println("Conversion to RGB done");
 		return RGB;
 	}
 	

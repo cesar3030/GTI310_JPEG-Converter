@@ -20,7 +20,8 @@ public class Quantification {
 	private static ArrayList<int[][]> matriceCR;
 
 	/*
-	 * Methode permetant le calcul de alpha
+	 * Method that calulate the alpha value
+	 * O(1)
 	 */
 	private static void calculAlpha() {
 
@@ -34,7 +35,8 @@ public class Quantification {
 	}
 
 	/*
-	 * Methode de verification si le fQ fournis est bien entre 0 et 100
+	 * Method to check if fq is between 0 et 100
+	 * O(1)
 	 */
 	private static void checkfQ() {
 		if (fQ > FQMAX || fQ < FQMIN) {
@@ -42,9 +44,12 @@ public class Quantification {
 		}
 	}
 
-	/*
-	 * Methode effectuant la quantification
-	 */
+	/**
+	 * Method that perform the quantization on the given ImageData object for the Quality Factor wanted
+	 * O()
+	 * @param img
+	 * @param fQRecu
+     */
 	public static void process(ImageData img, int fQRecu) {
 
 		fQ = fQRecu;
@@ -81,9 +86,11 @@ public class Quantification {
 		}
 	}
 
-	/*
-	 * Methode permettant la quantification des valeur CbCr
-	 */
+	/**
+	 * Method that quantize the Cb or Cr values
+	 * O(N^2)
+	 * @param recu vector of Cb or Cr values
+     */
 	private static void quantificationCbCr(int[][] recu) {
 		for (int i = 0; i < Main.BLOCK_SIZE; i++) {
 			for (int j = 0; j < Main.BLOCK_SIZE; j++) {
@@ -93,7 +100,10 @@ public class Quantification {
 	}
 
 	/*
-	 * Methode permetant le process de la quantification inverse
+	 * Method that perform the inverse quantization on the given ImageData object for the Quality Factor wanted
+	 * O(N^2) (O(N^2 * A * 3) A: nb of matrices in the ImageData object)
+	 * @param img
+	 * @param fQRecu
 	 */
 	public static void reverse(ImageData img, int fQRecu) {
 		 ArrayList<int[][]> reserveMatriceY = img.getYMatrices();
@@ -120,6 +130,7 @@ public class Quantification {
 	}
 	/*
 	 * Methode permetant la conversion inverse de la matrice Cb ou Cr inverse
+	 * O(N^2)
 	 */
 	private static void reverseQuantificationCbCr(int[][] recu) {
 		for (int i = 0; i < Main.BLOCK_SIZE; i++) {
@@ -131,6 +142,7 @@ public class Quantification {
 	
 	/*
 	 * Methode permetant la conversion inverse de la matrice y inverse
+	 * O(N^2)
 	 */
 	private static void reverseQuantificationY(int[][] recu) {
 		for (int i = 0; i < Main.BLOCK_SIZE; i++) {

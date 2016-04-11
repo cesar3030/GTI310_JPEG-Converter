@@ -40,6 +40,7 @@ public class ZigZag {
 
     /**
      * Method that convert a matrix into a vector using the zigzag method
+     * O(N^2) N: scare matrix size
      * @param matrix The matrix we want to convert
      * @return  int[] The vector that contain the matrix extracted with the zigzag method
      */
@@ -98,6 +99,7 @@ public class ZigZag {
 
     /**
      * Method that convert a zigzag vector into matrix
+     * O(N^2) N: scare matrix size
      * @param vector The vector we want to convert
      * @return  int[][] The matrix that contain the vector data
      */
