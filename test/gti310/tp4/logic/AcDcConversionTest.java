@@ -28,7 +28,7 @@ public class AcDcConversionTest {
         assertEquals(1,image.getDCList().size());
         assertEquals(96,(int)image.getDCList().get(0));
 
-        assertEquals(6,image.getACList().size());
+        assertEquals(7,image.getACList().size());
         assertEquals(0,image.getACList().get(0)[0]);
         assertEquals(6,image.getACList().get(0)[1]);
         assertEquals(0,image.getACList().get(0)[2]);
@@ -46,7 +46,7 @@ public class AcDcConversionTest {
         assertEquals(0,image.getACList().get(4)[2]);
         assertEquals(2,image.getACList().get(5)[0]);
         assertEquals(1,image.getACList().get(5)[1]);
-        assertEquals(1,image.getACList().get(5)[2]);
+        assertEquals(0,image.getACList().get(5)[2]);
 
 
         //WE TEST THE DC CONVERSION
@@ -68,54 +68,6 @@ public class AcDcConversionTest {
         assertEquals(3,(int)image.getDCList().get(3));
         assertEquals(-8,(int)image.getDCList().get(4));
 
-    }
-
-    @Test
-    public void testReverse() throws Exception {
-
-        ImageData image =new ImageData();
-
-        image.setNbColor(1);
-        image.setNbColumn(8);
-        image.setNbRow(8);
-
-        int[][] matrix = new int[][]
-        {
-                {96,6,-1,0,0,0,0,0},
-                {-1,0,0,0,0,0,0,0},
-                {-1,0,1,0,0,0,0,0},
-                {-1,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,0},
-        };
-
-        ArrayList<Integer> DCList = new ArrayList<>();
-        DCList.add(matrix[0][0]);
-
-        ArrayList<int[]> ACList = new ArrayList<>();
-        ACList.add(new int[]{0,6,0});
-        ACList.add(new int[]{0,-1,0});
-        ACList.add(new int[]{0,-1,0});
-        ACList.add(new int[]{1,-1,0});
-        ACList.add(new int[]{3,-1,0});
-        ACList.add(new int[]{2,1,1});
-
-        image.setDCList(DCList);
-        image.setACList(ACList);
-
-        AcDcConversion.reverse(image);
-
-        ZigZag.reverse(image);
-
-        int[][][] imageMatrix = image.getImageMatrix();
-
-        for (int i = 0; i < imageMatrix[0].length; i++) {
-            for (int j = 0; j < imageMatrix[0][0].length; j++) {
-                assertEquals(matrix[i][j],imageMatrix[0][i][j]);
-            }
-        }
     }
 
     @Test
